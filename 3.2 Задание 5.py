@@ -49,9 +49,11 @@ currencies = {
     "CNY": "Юань",
     "RUB": "Российский рубль",
 }
+
 root = Tk()
 root.title('Курс валют')
 root.geometry('300x350+600+100')
+
 Label(text='Базовая валюта:').pack(pady=10, padx=10)
 base_combobox = ttk.Combobox(values=list(currencies.keys()))
 base_combobox.pack()
@@ -72,4 +74,5 @@ t_label = ttk.Label()
 t_label.pack()
 button = Button(text='Получить курс обмена', command=exchange)
 button.pack()
+
 root.mainloop()
