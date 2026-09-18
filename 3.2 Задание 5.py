@@ -30,9 +30,13 @@ def exchange():
         try:
             result = requests.get(f'https://open.er-api.com/v6/latest/{base_code}')
             result.raise_for_status()
+            result2 = requests.get(f'https://open.er-api.com/v6/latest/{base2_code}')
+            result2.raise_for_status()
             data = result.json()
-            if target_code in data['rates']:
+            data2 = result2.json()
+            if target_code in data['rates'] and data2['rates']:
                 exchange_rate = data['rates'][target_code]
+                exchange_rate2 = data2['rates'][target_code]
                 base = currencies[base_code]
                 base2 = currencies[base2_code]
                 target = currencies[target_code]
@@ -67,7 +71,7 @@ base_combobox.pack()
 base_combobox.bind('<<ComboboxSelected>>', update_base_label)
 
 b_label = ttk.Label()
-b_label.pack()
+b_label.pack(pady=10, padx=10)
 
 Label(text='Вторая базовая валюта:').pack(pady=10, padx=10)
 base2_combobox = ttk.Combobox(values=list(currencies.keys()))
@@ -75,7 +79,7 @@ base2_combobox.pack()
 base2_combobox.bind('<<ComboboxSelected>>', update_base2_label)
 
 b2_label = ttk.Label()
-b2_label.pack()
+b2_label.pack(pady=10, padx=10)
 
 Label(text='Целевая валюта:').pack(pady=10, padx=10)
 target_combobox = ttk.Combobox(values=list(currencies.keys()))
@@ -83,7 +87,7 @@ target_combobox.pack()
 target_combobox.bind('<<ComboboxSelected>>', update_target_label)
 
 t_label = ttk.Label()
-t_label.pack()
+t_label.pack(pady=10, padx=10)
 
 button = Button(text='Получить курс обмена', command=exchange)
 button.pack()
