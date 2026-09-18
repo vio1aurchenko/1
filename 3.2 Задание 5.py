@@ -46,8 +46,15 @@ def exchange():
 currencies = {
     "USD": "Доллар США",
     "EUR": "Евро",
-    "CNY": "Юань",
+    "JPY": "Японская йена",
+    "GBP": "Британский фунт стерлингов",
+    "AUD": "Австралийский доллар",
+    "CAD": "Канадский доллар",
+    "CHF": "Швейцарский франк",
+    "CNY": "Китайский юань",
     "RUB": "Российский рубль",
+    "KZT": "Казахстанский тенге",
+    "UZS": "Узбекский сум"
 }
 
 root = Tk()
@@ -58,20 +65,26 @@ Label(text='Базовая валюта:').pack(pady=10, padx=10)
 base_combobox = ttk.Combobox(values=list(currencies.keys()))
 base_combobox.pack()
 base_combobox.bind('<<ComboboxSelected>>', update_base_label)
+
 b_label = ttk.Label()
 b_label.pack()
+
 Label(text='Вторая базовая валюта:').pack(pady=10, padx=10)
 base2_combobox = ttk.Combobox(values=list(currencies.keys()))
 base2_combobox.pack()
 base2_combobox.bind('<<ComboboxSelected>>', update_base2_label)
+
 b2_label = ttk.Label()
 b2_label.pack()
+
 Label(text='Целевая валюта:').pack(pady=10, padx=10)
 target_combobox = ttk.Combobox(values=list(currencies.keys()))
 target_combobox.pack()
 target_combobox.bind('<<ComboboxSelected>>', update_target_label)
+
 t_label = ttk.Label()
 t_label.pack()
+
 button = Button(text='Получить курс обмена', command=exchange)
 button.pack()
 
