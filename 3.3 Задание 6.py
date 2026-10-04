@@ -3,22 +3,36 @@ from tkinter import ttk
 from tkinter import messagebox as mb
 import requests
 
+cryptos = {
+    "BTC": {"name": "Bitcoin",  "id": "bitcoin"},
+    "ETH": {"name": "Ethereum", "id": "ethereum"},
+    "BNB": {"name": "BNB",      "id": "binancecoin"},
+    "XRP": {"name": "XRP",      "id": "ripple"},
+    "USDC": {"name": "USDC",    "id": "usd-coin"},
+    "SOL": {"name": "Solana",   "id": "solana"},
+    "TRX": {"name": "TRON",     "id": "tron"},
+    "ZEC": {"name": "Zcash",    "id": "zcash"},
+}
+
+
 def update_currency_label(event):
     code = combobox.get()
-    name = cruptos[code]
-    currency_label.config(text=name)
+    if code:
+        currency_label.config(text=cryptos[code]["name"])
 
 def exchange():
     code = combobox.get()
+    name = cryptos[code]["name"]
+    coin_id = cryptos[code]["id"]
     if code:
         try:
-            response = requests.get('https://open.er-api.com/v6/latest/USD')
+            url = (f"https://api.coingecko.com/api/v3/simple/price?ids={coin_id}&vs_currencies=usd")
+            response = requests.get(url, timeout=10)
             response.raise_for_status()
             data = response.json()
-            if code in data['rates']:
-                exchange_rate = data['rates'][code]
-                currency_name = cryptos[code]
-                mb.showinfo("Курс обмена", f"Курс к доллару: {exchange_rate:.1f} {currency_name} за 1 доллар")
+            if coin_id in data and "usd" in data[coin_id]:
+                price = data[coin_id]["usd"]
+                mb.showinfo("Курс обмена",f"1 {code} ({name}) = {price:,.2f} USD")
             else:
                 mb.showerror("Ошибка", f"Валюта {code} не найдена")
         except Exception as e:
@@ -27,22 +41,10 @@ def exchange():
         mb.showwarning("Внимание", "Выберите код валюты")
 
 
-cryptos = {
-    "BTC": "Bitcoin",
-    "ETH": "Ethereum",
-    "USDT": "Tether",
-    "BNB": "BNB",
-    "XRP": "XRP",
-    "USDC": "USDC",
-    "SOL": "Solana",
-    "TRX": "TRON",
-    "FIGR_HELOC": "Figure Heloc",
-    "ZEC": "Zcash"
-}
-
 window = Tk()
 window.title("Курс обмена криптовалюты к доллару")
 window.geometry("400x200+760+400") # + чтобы посередине на 1920
+
 Label(text="Выберите код валюты:").pack(padx=10, pady=10)
 
 combobox = ttk.Combobox(values=list(cryptos.keys()))
