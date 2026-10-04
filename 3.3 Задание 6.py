@@ -28,21 +28,21 @@ def exchange():
 
 
 cryptos = {
-    "EUR": "Евро",
-    "JPY": "Японская йена",
-    "GBP": "Британский фунт стерлингов",
-    "AUD": "Австралийский доллар",
-    "CAD": "Канадский доллар",
-    "CHF": "Швейцарский франк",
-    "CNY": "Китайский юань",
-    "RUB": "Российский рубль",
-    "KZT": "Казахстанский тенге",
-    "UZS": "Узбекский сум"
+    "BTC": "Bitcoin",
+    "ETH": "Ethereum",
+    "USDT": "Tether",
+    "BNB": "BNB",
+    "XRP": "XRP",
+    "USDC": "USDC",
+    "SOL": "Solana",
+    "TRX": "TRON",
+    "FIGR_HELOC": "Figure Heloc",
+    "ZEC": "Zcash"
 }
 
 window = Tk()
 window.title("Курс обмена криптовалюты к доллару")
-window.geometry("360x180")
+window.geometry("400x200+760+400") # + чтобы посередине на 1920
 Label(text="Выберите код валюты:").pack(padx=10, pady=10)
 
 combobox = ttk.Combobox(values=list(cryptos.keys()))
