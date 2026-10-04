@@ -3,17 +3,6 @@ from tkinter import ttk
 from tkinter import messagebox as mb
 import requests
 
-cryptos = {
-    "BTC": {"name": "Bitcoin",  "id": "bitcoin"},
-    "ETH": {"name": "Ethereum", "id": "ethereum"},
-    "BNB": {"name": "BNB",      "id": "binancecoin"},
-    "XRP": {"name": "XRP",      "id": "ripple"},
-    "USDC": {"name": "USDC",    "id": "usd-coin"},
-    "SOL": {"name": "Solana",   "id": "solana"},
-    "TRX": {"name": "TRON",     "id": "tron"},
-    "ZEC": {"name": "Zcash",    "id": "zcash"},
-}
-
 
 def update_currency_label(event):
     code = combobox.get()
@@ -40,6 +29,17 @@ def exchange():
     else:
         mb.showwarning("Внимание", "Выберите код валюты")
 
+
+cryptos = {
+    "BTC": {"name": "Bitcoin",  "id": "bitcoin"},
+    "ETH": {"name": "Ethereum", "id": "ethereum"},
+    "BNB": {"name": "BNB",      "id": "binancecoin"},
+    "XRP": {"name": "XRP",      "id": "ripple"},
+    "USDC": {"name": "USDC",    "id": "usd-coin"},
+    "SOL": {"name": "Solana",   "id": "solana"},
+    "TRX": {"name": "TRON",     "id": "tron"},
+    "ZEC": {"name": "Zcash",    "id": "zcash"},
+}
 
 window = Tk()
 window.title("Курс обмена криптовалюты к доллару")
